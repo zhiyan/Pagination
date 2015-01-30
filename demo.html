@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+	<meta charset="UTF-8">
+	<title>pagination demo</title>
+	<link rel="stylesheet" href="pagination.css">
+	<script src="pagination.js"></script>
+	<style>
+		*{
+			margin:0;padding:0;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="wrap"></div>
+
+	<div id="wrap2"></div>
+	
+	<script>
+		var pageNum = 1;
+
+		var pageObj = new Pagination( document.getElementById("wrap") );
+
+		pageObj.render({
+			"pageSize" : 10,
+			"simple" : true,
+			"callback" : function( page ){
+				this.update({
+					"currentPage" : page
+				});
+			}
+		});
+
+		var pageObj2 = new Pagination( document.getElementById("wrap2") );
+
+		pageObj2.render({
+			"pageSize" : 20,
+			"maxSize" : 5,
+			"currentPage" : 5,
+			"callback" : function( page ){
+				this.update({
+					"currentPage" : page
+				});
+			}
+		});
+	</script>
+</body>
+</html>
