@@ -29,6 +29,7 @@
 	Pagination.prototype.render = function( options ){
 		this.update( options );
 		this.bindEvent();
+		return this;
 	}
 
 	Pagination.prototype.update = function( options ){
@@ -102,6 +103,7 @@
 
 		this.elem.innerHTML = "";
 		this.elem.appendChild( page );
+		return this;
 	}
 
 	Pagination.prototype.setOptions = function( options, force ){
@@ -116,6 +118,7 @@
 				this.options[i] = options[i];
 			}
 		}
+		return this;
 	}
 
 	Pagination.prototype.usePrefix = function( text ){
@@ -124,13 +127,19 @@
 
 	Pagination.prototype.bindEvent = function(){
 		var that = this,
-			rel;
-		this.elem.addEventListener("click",function( e ){
+			rel,
+			fn;
+		fn = function( e ){
 			var target = e.srcElement || e.target;
 			if( rel = target.getAttribute( that.usePrefix("rel") ) ){
 				that.options.callback.call( that, +rel );
 			}
-		})
+		}
+		if( this.elem.attachEvent){
+			this.elem.attachEvent( "onclick", fn);
+		}else{
+			this.elem.addEventListener("click",fn,false)
+		}
 	}
 
 	// utils
