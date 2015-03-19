@@ -6,6 +6,7 @@
 .pagination a.pagination-current{ border:1px solid #3bb0d0; color:#3bb0d0; }
 .pagination .pagination-input{color:#333;height:24px;line-height: 24px;padding:0;border:1px solid #ddd;width:30px;text-align: center;margin-right: 10px;float: left;}
 .pagination .pagination-goto{float: left;margin-left: 0;color:#fff;background-color:#3bb0d0;border:1px solid #3bb0d0;cursor:pointer;height:26px;line-height: 26px;padding:0 5px;}
+.pagination .pagination-goto:hover{opacity:.8;}
 .pagination .pagination-pages{float: right;}
 .pagination i { padding:0 4px; font-family:tahoma; color:#bbb; }
 .pagination .pagination-disabled,.pagination .pagination-disabled:hover { border:1px solid #ececec; background-color:#fdfdfd; color:#aaa; cursor:default; }
