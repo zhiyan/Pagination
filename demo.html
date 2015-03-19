@@ -13,9 +13,9 @@
 </head>
 <body>
 
-	<div id="wrap"></div>
+	<div id="wrap" style="width:600px;"></div>
 
-	<div id="wrap2"></div>
+	<div id="wrap2" style="width:600px;"></div>
 	
 	<script>
 		var pageNum = 1;
@@ -25,6 +25,7 @@
 		pageObj.render({
 			"pageSize" : 10,
 			"simple" : true,
+			"goto" : true,
 			"callback" : function( page ){
 				this.update({
 					"currentPage" : page

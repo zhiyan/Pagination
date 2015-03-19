@@ -5,11 +5,13 @@
 		"prevText" : "上一页",
 		"firstText" : "首页",
 		"lastText" : "尾页",
+		"gotoText": "前往",
 		"maxSize" : false,
 		"currentPage" : 1,
 		"pageSize" : 0,
 		"prefix" : "pagination",
 		"simple" : false,
+		"goto" : false,
 		"callback" : function(){ return this; }
 	}
 
@@ -35,6 +37,9 @@
 	Pagination.prototype.update = function( options ){
 		var page = createElement( "div", this.options.prefix ),
 			scope,
+			domInput,
+			domGoto,
+			domPage,
 			domFirst,
 			domLast,
 			domPrev,
@@ -45,6 +50,17 @@
 
 		options = this.options;
 		scope = calScope( options.currentPage,options.maxSize, options.pageSize);
+		domPage = createElement( "div", this.usePrefix( "pages" ) );
+
+		// make goto input
+		if( options.goto ){
+			domInput = createElement( "input", this.usePrefix( "input" ), options.currentPage );
+			domInput.type = "text";
+			page.appendChild( domInput );
+
+			domGoto = createElement( "button", this.usePrefix( "goto" ), options.gotoText );
+			page.appendChild( domGoto );
+		}
 
 		// make first pageObj
 		if( !options.simple ){
@@ -54,7 +70,7 @@
 			}else{
 				domFirst.setAttribute( this.usePrefix("rel"),  1 );
 			};
-			page.appendChild( domFirst );
+			domPage.appendChild( domFirst );
 		}
 
 		// make prev pageObj
@@ -64,21 +80,21 @@
 		}else{
 			domPrev.setAttribute( this.usePrefix("rel"),  options.currentPage - 1 );
 		};
-		page.appendChild( domPrev );
+		domPage.appendChild( domPrev );
 
 		// make pageList
 		if( scope[0] > 1 ){
-			page.appendChild( createElement( "span", null, "..." ) );
+			domPage.appendChild( createElement( "span", null, "..." ) );
 		}
 		for( var i = scope[0]; i <= scope[1]; i++ ){
 			domPageNode = createElement( "a", options.currentPage === i ? this.usePrefix( "current" ) : null, i );
 			if( options.currentPage !== i ){
 				domPageNode.setAttribute( this.usePrefix("rel"), i )
 			}
-			page.appendChild( domPageNode );
+			domPage.appendChild( domPageNode );
 		}
 		if( scope[1] < options.pageSize  ){
-			page.appendChild( createElement( "span", null, "..." ) );
+			domPage.appendChild( createElement( "span", null, "..." ) );
 		}
 
 		// make next pageObj
@@ -88,7 +104,7 @@
 		}else{
 			domNext.setAttribute( this.usePrefix("rel"),  options.currentPage + 1 );
 		};
-		page.appendChild( domNext );
+		domPage.appendChild( domNext );
 
 		// make last pageObj
 		if( !options.simple ){
@@ -98,9 +114,10 @@
 			}else{
 				domFirst.setAttribute( this.usePrefix("rel"),  options.pageSize );
 			};
-			page.appendChild( domFirst );
+			domPage.appendChild( domFirst );
 		}
 
+		page.appendChild( domPage );
 		this.elem.innerHTML = "";
 		this.elem.appendChild( page );
 		return this;
@@ -130,9 +147,15 @@
 			rel,
 			fn;
 		fn = function( e ){
-			var target = e.srcElement || e.target;
+			var target = e.srcElement || e.target,
+				pageNum;
 			if( rel = target.getAttribute( that.usePrefix("rel") ) ){
 				that.options.callback.call( that, +rel );
+			}
+			// goto
+			if( target.tagName.toLowerCase() === "button" ){
+				pageNum = ~~that.elem.getElementsByTagName( "input" )[0].value;
+				pageNum > 0 && pageNum <= that.options.pageSize && that.options.callback.call( that, pageNum );
 			}
 		}
 		if( this.elem.attachEvent){
@@ -149,7 +172,7 @@
 			dom.className = className;
 		}
 		if( !!text ){
-			dom.innerHTML = text;
+			name === "input" ?  ( dom.value = text ) : ( dom.innerHTML = text );
 		}
 		if( name === "a" ){
 			dom.href = "javascript:void(0)";

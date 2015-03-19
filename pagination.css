@@ -1,7 +1,11 @@
+.pagination{zoom:1;overflow: hidden;}
 .pagination a,.pagination span{ text-decoration: none;display:inline-block; margin:0 2px 3px 3px; padding:4px 10px; font:normal 12px/18px tahoma; text-align:center; vertical-align:middle; background-color:#fdfdfd; color:#555; outline:none; cursor:pointer; }
 .pagination a{border:1px solid #ddd; }
-.pagination a:hover { border:1px solid #3bb0d0; color:#3bb0d0; }
-.pagination a:active { border:1px solid #3bb0d0; color:#3bb0d0; }
+.pagination a:hover{ border:1px solid #3bb0d0; color:#3bb0d0; }
+.pagination a:active{ border:1px solid #3bb0d0; color:#3bb0d0; }
 .pagination a.pagination-current{ border:1px solid #3bb0d0; color:#3bb0d0; }
+.pagination .pagination-input{color:#333;height:24px;line-height: 24px;padding:0;border:1px solid #ddd;width:30px;text-align: center;margin-right: 10px;float: left;}
+.pagination .pagination-goto{float: left;margin-left: 0;color:#fff;background-color:#3bb0d0;border:1px solid #3bb0d0;cursor:pointer;height:26px;line-height: 26px;padding:0 5px;}
+.pagination .pagination-pages{float: right;}
 .pagination i { padding:0 4px; font-family:tahoma; color:#bbb; }
 .pagination .pagination-disabled,.pagination .pagination-disabled:hover { border:1px solid #ececec; background-color:#fdfdfd; color:#aaa; cursor:default; }
